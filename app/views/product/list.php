@@ -1,81 +1,116 @@
 <?php include 'app/views/shares/header.php'; ?>
 
-<div class="container mx-auto px-6 py-10">
-    <div class="flex justify-between items-center mb-10">
-        <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">Danh sách sản phẩm</h1>
-        <a href="/VoTuanKiet/Product/add" 
-           class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-400 text-white font-semibold px-5 py-3 rounded-xl shadow-lg transition transform hover:scale-105 active:scale-95">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-            Thêm sản phẩm mới
-        </a>
-    </div>
+<style>
+    /* Custom keyframes for fade-in and slide-up animation */
+    @keyframes fadeInSlideUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <?php foreach ($products as $product): ?>
-            <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-1">
-                <div class="relative aspect-[3/2] overflow-hidden">
-                    <?php if ($product->image && file_exists($_SERVER['DOCUMENT_ROOT'] . '/VoTuanKiet/' . $product->image)): ?>
-                        <img 
-                            src="/VoTuanKiet/<?php echo $product->image; ?>" 
-                            alt="<?php echo htmlspecialchars($product->name, ENT_QUOTES, 'UTF-8'); ?>" 
-                            class="w-full h-full object-cover object-center transition-transform duration-300 ease-in-out hover:scale-110"
-                        >
-                    <?php else: ?>
-                        <div class="w-full h-full bg-gray-200 flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                        </div>
-                    <?php endif; ?>
-                </div>
+    @keyframes fadeInScale {
+        0% {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
 
-                <div class="p-5 flex flex-col justify-between h-[230px]">
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <a href="/VoTuanKiet/Product/show/<?php echo $product->id; ?>" 
-                               class="text-xl font-semibold text-gray-800 hover:text-emerald-600 transition duration-300 hover:underline">
-                                <?php echo htmlspecialchars($product->name, ENT_QUOTES, 'UTF-8'); ?>
-                            </a>
-                            <span class="bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full">
-                                <?php echo htmlspecialchars($product->category_name, ENT_QUOTES, 'UTF-8'); ?>
-                            </span>
-                        </div>
+    /* Apply animation to product cards with staggered delay */
+    .product-card {
+        animation: fadeInSlideUp 0.6s ease-out forwards;
+    }
+    .product-card:nth-child(1) { animation-delay: 0.1s; }
+    .product-card:nth-child(2) { animation-delay: 0.2s; }
+    .product-card:nth-child(3) { animation-delay: 0.3s; }
+    .product-card:nth-child(4) { animation-delay: 0.4s; }
+    .product-card:nth-child(5) { animation-delay: 0.5s; }
+    /* Continue for more items if needed, or use JavaScript for dynamic delays */
 
-                        <p class="text-gray-600 text-sm leading-relaxed line-clamp-3">
-                            <?php echo htmlspecialchars($product->description, ENT_QUOTES, 'UTF-8'); ?>
-                        </p>
-                    </div>
+    /* Apply animation to empty state */
+    .empty-state {
+        animation: fadeInScale 0.5s ease-out forwards;
+    }
 
-                    <div class="mt-4 flex items-center justify-between">
-                        <span class="text-2xl font-extrabold text-rose-600">
-                            <?php echo number_format($product->price, 0, ',', '.'); ?> VND
-                        </span>
 
-                        <div class="flex space-x-3">
-                            <a href="/VoTuanKiet/Product/edit/<?php echo $product->id; ?>" 
-                               class="flex items-center gap-1 bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded-lg shadow-md transition transform hover:scale-105">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                </svg>
-                                Sửa
-                            </a>
+    .btn-bounce:hover {
+        animation: bounce 0.3s ease-in-out;
+    }
 
-                            <a href="/VoTuanKiet/Product/delete/<?php echo $product->id; ?>" 
-                               onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');" 
-                               class="flex items-center gap-1 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-md transition transform hover:scale-105">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
-                                Xóa
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php endforeach; ?>
+    @keyframes bounce {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+</style>
+
+<div class="mb-8 flex justify-center">
+    <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+        <h1 class="text-3xl font-bold text-gray-900 transition-all duration-500 hover:text-primary-700">Danh sách sản phẩm</h1>
     </div>
 </div>
+
+<?php if (empty($products)): ?>
+    <div class="bg-primary-50 border-l-4 border-primary-500 text-primary-700 p-6 rounded-lg shadow-md empty-state" role="alert">
+        <p class="font-bold text-lg">Không có sản phẩm</p>
+        <p class="mt-2">Hiện tại chưa có sản phẩm nào trong cửa hàng. <a href="/VoTuanKiet/Product/add" class="underline hover:text-primary-600 transition-colors duration-300">Thêm sản phẩm mới</a> ngay!</p>
+    </div>
+<?php else: ?>
+    <div class="flex justify-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-full">
+            <?php foreach ($products as $product): ?>
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-500 product-card">
+                    <a href="/VoTuanKiet/Product/show/<?php echo $product->id; ?>">
+                        <?php if ($product->image): ?>
+                            <img src="/VoTuanKiet/<?php echo htmlspecialchars($product->image, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($product->name, ENT_QUOTES, 'UTF-8'); ?>" class="w-full h-48 object-cover transition-transform duration-500 hover:scale-105">
+                        <?php else: ?>
+                            <div class="w-full h-48 bg-gray-100 flex items-center justify-center text-gray-400 transition-opacity duration-300 hover:opacity-80">
+                                <i class="fas fa-image fa-2x"></i>
+                            </div>
+                        <?php endif; ?>
+                    </a>
+                    <div class="p-5">
+                        <h2 class="text-xl font-semibold text-primary-700 mb-2">
+                            <a href="/VoTuanKiet/Product/show/<?php echo $product->id; ?>" class="hover:text-primary-500 transition-colors duration-300"><?php echo htmlspecialchars($product->name, ENT_QUOTES, 'UTF-8'); ?></a>
+                        </h2>
+                        <p class="text-gray-600 text-sm mb-3 line-clamp-2 transition-opacity duration-300 hover:opacity-90"><?php echo htmlspecialchars(strip_tags($product->description), ENT_QUOTES, 'UTF-8'); ?></p>
+                        <p class="text-xl font-bold text-green-600 mb-3 transition-transform duration-300 hover:scale-105">
+                            <?php echo number_format($product->price, 0, ',', '.'); ?> VND
+                        </p>
+                        <p class="text-gray-500 text-sm mb-4">Danh mục: 
+                            <span class="font-medium text-primary-600 transition-colors duration-300 hover:text-primary-500"><?php echo htmlspecialchars($product->category_name, ENT_QUOTES, 'UTF-8'); ?></span>
+                        </p>
+                        <div class="flex justify-center space-x-2">
+                            <a href="/VoTuanKiet/Product/addToCart/<?php echo $product->id; ?>" 
+                               class="inline-flex items-center px-3 py-1.5 bg-primary-500 hover:bg-primary-600 text-white text-sm font-medium rounded-md shadow-sm hover:shadow-md transition-all duration-300 btn-bounce">
+                                <i class="fas fa-cart-plus mr-1"></i>
+                                <span class="hidden sm:inline">Thêm vào giỏ</span>
+                                <span class="sm:hidden">Giỏ</span>
+                            </a>
+                            <a href="/VoTuanKiet/Product/edit/<?php echo $product->id; ?>" 
+                               class="inline-flex items-center px-3 py-1.5 bg-yellow-400 hover:bg-yellow-500 text-gray-800 text-sm font-medium rounded-md shadow-sm hover:shadow-md transition-all duration-300 btn-bounce">
+                                <i class="fas fa-edit mr-1"></i>
+                                <span class="hidden sm:inline">Sửa</span>
+                            </a>
+                            <a href="/VoTuanKiet/Product/delete/<?php echo $product->id; ?>" 
+                               onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');" 
+                               class="inline-flex items-center px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-md shadow-sm hover:shadow-md transition-all duration-300 btn-bounce">
+                                <i class="fas fa-trash-alt mr-1"></i>
+                                <span class="hidden sm:inline">Xóa</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+<?php endif; ?>
 
 <?php include 'app/views/shares/footer.php'; ?>

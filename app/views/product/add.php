@@ -63,7 +63,7 @@
                 class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition duration-200 shadow-md">
                 ✅ Thêm sản phẩm
             </button>
-            <a href="/VoTuanKiet/Product/list"
+            <a href="/VoTuanKiet/Product"
                 class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded-lg transition duration-200 shadow-md">
                 ⬅️ Quay lại danh sách
             </a>

@@ -90,7 +90,7 @@
                     class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition shadow">
                 💾 Lưu thay đổi
             </button>
-            <a href="/VoTuanKiet/Product/list"
+            <a href="/VoTuanKiet/product"
                class="text-gray-600 bg-gray-100 hover:bg-gray-200 py-2 px-4 rounded-lg transition shadow border">
                 ← Quay lại danh sách
             </a>

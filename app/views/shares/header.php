@@ -7,6 +7,8 @@
     <title>Quản lý sản phẩm</title>
     <!-- Replace Bootstrap with Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for cart icon -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <!-- Custom configurations for Tailwind -->
     <script>
         tailwind.config = {
@@ -25,6 +27,14 @@
             }
         }
     </script>
+    <style>
+        /* Updated styling for cart badge */
+        .cart-badge {
+            top: 0;
+            right: -4px;
+            font-size: 0.75rem; /* Slightly larger for better readability */
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
@@ -46,6 +56,19 @@
                         <a href="/VoTuanKiet/Product/add"
                            class="border-transparent text-gray-500 hover:border-primary-500 hover:text-primary-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                             Thêm sản phẩm
+                        </a>
+                        <a href="/VoTuanKiet/Category/"
+                           class="border-transparent text-gray-500 hover:border-primary-500 hover:text-primary-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Quản lý danh mục
+                        </a>
+                        <a href="/VoTuanKiet/Product/cart"
+                           class="border-transparent text-gray-500 hover:border-primary-500 hover:text-primary-700 inline-flex items-center px-1 py-1 border-b-2 text-sm font-medium relative">
+                            <i class="fas fa-shopping-cart mr-2"></i>Giỏ hàng
+                            <?php 
+                            $cart_item_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+                            if ($cart_item_count > 0): ?>
+                                <span class="cart-badge absolute inline-flex items-center justify-center px-2 py-1 text-sm font-bold text-white bg-red-500 rounded-full border border-white shadow-sm"><?php echo $cart_item_count; ?></span>
+                            <?php endif; ?>
                         </a>
                     </div>
                 </div>
@@ -75,12 +98,21 @@
                 <a href="/VoTuanKiet/Product/add" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-primary-500 hover:text-primary-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
                     Thêm sản phẩm
                 </a>
+                <a href="/VoTuanKiet/Product/cart" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-primary-500 hover:text-primary-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium relative">
+                    <i class="fas fa-shopping-cart mr-2"></i>Giỏ hàng
+                    <?php 
+                    $cart_item_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+                    if ($cart_item_count > 0): ?>
+                        <span class="cart-badge absolute inline-flex items-center justify-center px-2 py-1 text-sm font-bold text-white bg-red-500 rounded-full border border-white shadow-sm"><?php echo $cart_item_count; ?></span>
+                    <?php endif; ?>
+                </a>
             </div>
         </div>
     </nav>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <!-- Your page content will go here -->
+    </main>
 
     <script>
         // Mobile menu toggle functionality
@@ -100,3 +132,6 @@
             }
         });
     </script>
+</body>
+
+</html>
