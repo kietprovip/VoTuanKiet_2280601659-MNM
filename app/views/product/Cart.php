@@ -1,47 +1,47 @@
 <?php include 'app/views/shares/header.php'; ?>
 
-<div class="max-w-3xl mx-auto">
-    <h1 class="text-3xl font-bold text-primary-700 mb-10 text-center">Giỏ hàng của bạn</h1>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h1 class="text-3xl font-extrabold text-indigo-700 mb-10 text-center tracking-tight">Giỏ hàng của bạn</h1>
 
     <div id="cart-container">
         <?php if (!empty($cart)): ?>
-            <div class="bg-white rounded-2xl shadow-lg p-4 sm:p-6 border border-gray-100">
+            <div class="bg-white rounded-2xl shadow-xl p-6 border border-gray-100 transition-all duration-300 hover:shadow-2xl">
                 <ul class="divide-y divide-gray-200" id="cart-item-list">
                     <?php 
                     foreach ($cart as $id => $item): 
                         $item_total = $item['price'] * $item['quantity'];
                     ?>
-                        <li class="py-5 flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6" id="cart-item-<?php echo $id; ?>">
+                        <li class="py-6 flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6 transition-all duration-200 hover:bg-gray-50 rounded-lg" id="cart-item-<?php echo $id; ?>">
                             <?php if ($item['image']): ?>
-                                <img src="/VoTuanKiet/<?php echo htmlspecialchars($item['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>" class="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-lg shadow-sm self-center sm:self-auto">
+                                <img src="/VoTuanKiet/<?php echo htmlspecialchars($item['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>" class="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-lg shadow-sm transform transition-transform duration-300 hover:scale-105">
                             <?php else: ?>
-                                <div class="w-24 h-24 sm:w-28 sm:h-28 bg-gray-100 flex items-center justify-center text-gray-400 rounded-lg shadow-sm self-center sm:self-auto">
+                                <div class="w-24 h-24 sm:w-28 sm:h-28 bg-gray-100 flex items-center justify-center text-gray-400 rounded-lg shadow-sm">
                                     <i class="fas fa-image fa-2x"></i>
                                 </div>
                             <?php endif; ?>
                             
                             <div class="flex-grow w-full">
-                                <h2 class="text-lg font-semibold text-primary-700 hover:text-primary-600 transition-colors">
+                                <h2 class="text-xl font-semibold text-indigo-700 hover:text-indigo-600 transition-colors duration-200">
                                     <a href="/VoTuanKiet/Product/show/<?php echo $id; ?>"><?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?></a>
                                 </h2>
-                                <p class="text-sm text-gray-500 mt-1">Đơn giá: <span class="item-price"><?php echo number_format($item['price'], 0, ',', '.'); ?></span> VND</p>
+                                <p class="text-sm text-gray-600 mt-1">Đơn giá: <span class="item-price font-medium"><?php echo number_format($item['price'], 0, ',', '.'); ?> VND</span></p>
                                 
-                                <div class="mt-3 flex items-center justify-between flex-col sm:flex-row space-y-3 sm:space-y-0">
-                                    <div class="flex items-center space-x-2">
-                                        <span class="text-sm text-gray-700">Số lượng:</span>
-                                        <div class="flex items-center border border-gray-300 rounded-md shadow-sm">
+                                <div class="mt-4 flex items-center justify-between flex-col sm:flex-row space-y-4 sm:space-y-0">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-sm text-gray-700 font-medium">Số lượng:</span>
+                                        <div class="flex items-center border border-gray-300 rounded-lg shadow-sm bg-white">
                                             <button type="button" data-id="<?php echo $id; ?>" 
-                                                    class="quantity-decrease p-2 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-l-md transition-all duration-300">
+                                                    class="quantity-decrease p-2.5 text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-l-lg transition-all duration-300">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clip-rule="evenodd" />
                                                 </svg>
                                             </button>
                                             <span id="quantity-<?php echo $id; ?>" 
-                                                  class="item-quantity px-4 py-1.5 text-center text-gray-700 border-l border-r border-gray-300 text-sm font-medium w-12">
+                                                  class="item-quantity px-4 py-2 text-center text-gray-800 border-l border-r border-gray-300 text-sm font-semibold w-14">
                                                 <?php echo htmlspecialchars($item['quantity'], ENT_QUOTES, 'UTF-8'); ?>
                                             </span>
                                             <button type="button" data-id="<?php echo $id; ?>" 
-                                                    class="quantity-increase p-2 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-r-md transition-all duration-300">
+                                                    class="quantity-increase p-2.5 text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-r-lg transition-all duration-300">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
                                                 </svg>
@@ -49,39 +49,39 @@
                                         </div>
                                     </div>
                                     <p class="text-lg font-bold text-green-600">
-                                        <span id="item-total-<?php echo $id; ?>"><?php echo number_format($item_total, 0, ',', '.'); ?></span> VND
+                                        <span id="item-total-<?php echo $id; ?>"><?php echo number_format($item_total, 0, ',', '.'); ?> VND</span>
                                     </p>
                                 </div>
                             </div>
                             <button type="button" data-id="<?php echo $id; ?>" 
-                                    class="remove-item inline-flex items-center px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-md shadow-sm hover:shadow-md transition-all duration-300 self-end sm:self-center mt-2 sm:mt-0">
-                                <i class="fas fa-trash-alt mr-1"></i>Xóa
+                                    class="remove-item inline-flex items-center px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 self-end sm:self-center mt-3 sm:mt-0">
+                                <i class="fas fa-trash-alt mr-2"></i>Xóa
                             </button>
                         </li>
                     <?php endforeach; ?>
                 </ul>
 
-                <div class="mt-6 pt-6 border-t border-gray-200">
-                    <div class="flex justify-between items-center text-xl font-semibold text-gray-800 bg-gray-50 p-4 rounded-lg">
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex justify-between items-center text-xl font-semibold text-gray-800 bg-gray-50 p-5 rounded-xl shadow-sm">
                         <span>Tổng cộng:</span>
-                        <span id="cart-total-price" class="text-green-600"><?php echo number_format($cartTotalPrice ?? 0, 0, ',', '.'); ?> VND</span>
+                        <span id="cart-total-price" class="text-green-600 font-bold"><?php echo number_format($cartTotalPrice ?? 0, 0, ',', '.'); ?> VND</span>
                     </div>
                 </div>
                 <div class="mt-8 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="/VoTuanKiet/Product/" class="w-full sm:w-auto text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out">
+                    <a href="/VoTuanKiet/Product/" class="w-full sm:w-auto text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                         <i class="fas fa-shopping-bag mr-2"></i>Tiếp tục mua sắm
                     </a>
-                    <a href="/VoTuanKiet/Product/checkout" id="checkout-button" class="w-full sm:w-auto text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                    <a href="/VoTuanKiet/Product/checkout" id="checkout-button" class="w-full sm:w-auto text-center bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                         <i class="fas fa-credit-card mr-2"></i>Tiến hành Thanh Toán
                     </a>
                 </div>
             </div>
         <?php else: ?>
-            <div id="empty-cart-message" class="bg-primary-50 border-l-4 border-primary-500 text-primary-700 p-6 rounded-lg shadow-md text-center">
-                <i class="fas fa-shopping-cart fa-3x text-primary-500 mb-4"></i>
-                <p class="text-xl font-semibold">Giỏ hàng của bạn đang trống.</p>
-                <p class="mt-2 text-gray-600">Hãy thêm sản phẩm vào giỏ để tiếp tục mua sắm nhé!</p>
-                <a href="/VoTuanKiet/Product/" class="mt-6 inline-block bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+            <div id="empty-cart-message" class="bg-indigo-50 border-l-4 border-indigo-500 text-indigo-700 p-8 rounded-xl shadow-lg text-center transform transition-all duration-300">
+                <i class="fas fa-shopping-cart fa-4x text-indigo-500 mb-6 animate-bounce"></i>
+                <p class="text-2xl font-semibold">Giỏ hàng của bạn đang trống.</p>
+                <p class="mt-3 text-gray-600 text-lg">Hãy thêm sản phẩm vào giỏ để tiếp tục mua sắm nhé!</p>
+                <a href="/VoTuanKiet/Product/" class="mt-6 inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                     Khám phá sản phẩm
                 </a>
             </div>
@@ -129,11 +129,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.itemRemoved) {
                     const itemElement = document.getElementById(`cart-item-${productId}`);
                     if (itemElement) {
-                        itemElement.remove();
+                        itemElement.classList.add('opacity-0', 'scale-95');
+                        setTimeout(() => itemElement.remove(), 300);
                     }
                 } else if (quantityElement && itemTotalElement) {
                     quantityElement.textContent = data.newQuantity;
-                    itemTotalElement.textContent = formatCurrency(data.itemTotalPrice);
+                    itemTotalElement.textContent = formatCurrency(data.itemTotalPrice) + ' VND';
                 }
 
                 if (cartTotalPriceElement) {
@@ -154,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     showEmptyCartMessage();
                 }
             } else {
-                alert('Lỗi: ' + (data.message || 'Không thể cập nhật giỏ hàng.'));
+                alert('Lỗi: ' + (data.message || 'Không thể cập nhật giở hàng.'));
             }
         })
         .catch(error => {
@@ -171,7 +172,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const cartContentDiv = document.querySelector('#cart-container > .bg-white');
 
         if (cartContentDiv) {
-            cartContentDiv.remove();
+            cartContentDiv.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => cartContentDiv.remove(), 300);
         }
 
         let emptyCartMessageEl = document.getElementById('empty-cart-message');
@@ -179,11 +181,11 @@ document.addEventListener('DOMContentLoaded', function() {
             emptyCartMessageEl.classList.remove('hidden'); 
         } else { 
             const newEmptyCartHTML = `
-                <div id="empty-cart-message" class="bg-primary-50 border-l-4 border-primary-500 text-primary-700 p-6 rounded-lg shadow-md text-center">
-                    <i class="fas fa-shopping-cart fa-3x text-primary-500 mb-4"></i>
-                    <p class="text-xl font-semibold">Giỏ hàng của bạn đang trống.</p>
-                    <p class="mt-2 text-gray-600">Hãy thêm sản phẩm vào giỏ để tiếp tục mua sắm nhé!</p>
-                    <a href="/VoTuanKiet/Product/" class="mt-6 inline-block bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                <div id="empty-cart-message" class="bg-indigo-50 border-l-4 border-indigo-500 text-indigo-700 p-8 rounded-xl shadow-lg text-center transform transition-all duration-300">
+                    <i class="fas fa-shopping-cart fa-4x text-indigo-500 mb-6 animate-bounce"></i>
+                    <p class="text-2xl font-semibold">Giỏ hàng của bạn đang trống.</p>
+                    <p class="mt-3 text-gray-600 text-lg">Hãy thêm sản phẩm vào giỏ để tiếp tục mua sắm nhé!</p>
+                    <a href="/VoTuanKiet/Product/" class="mt-6 inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                         Khám phá sản phẩm
                     </a>
                 </div>`;
