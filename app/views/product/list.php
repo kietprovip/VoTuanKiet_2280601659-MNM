@@ -3,7 +3,8 @@
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <!-- Header Section -->
     <div class="text-center mb-10">
-        <h1 class="text-4xl sm:text-5xl font-extrabold text-indigo-700 mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent tracking-tight">
+        
+        <h1 class="text-4xl font-extrabold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
             Danh sách sản phẩm
         </h1>
      

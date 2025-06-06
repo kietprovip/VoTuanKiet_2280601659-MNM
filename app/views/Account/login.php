@@ -63,10 +63,8 @@
         <div class="max-w-sm w-full space-y-6">
             <!-- Header Section -->
             <div class="text-center">
-                <div class="mx-auto h-16 w-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center mb-4 shadow-2xl">
-                    <i class="fas fa-shopping-bag text-white text-xl"></i>
-                </div>
-                <h2 class="text-3xl font-extrabold gradient-text mb-2">
+
+                <<h2 class="text-3xl font-extrabold text-purple-800 mb-2">
                     Chào mừng trở lại!
                 </h2>
 
